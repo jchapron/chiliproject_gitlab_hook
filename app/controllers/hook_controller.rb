@@ -25,6 +25,7 @@ class HookController < ApplicationController
     end
 
     def create_journal_for(issue, commit)
+      JournalObserver.instance.send_notification = false
       author = commit[:author][:name]
       message = "\"#{author} referenced this issue in a commit.\":#{commit[:url]}"
       version = issue.init_journal.version
